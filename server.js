@@ -9,7 +9,7 @@ const userRouter = require("./routes/userRoutes");
 const app = express();
 const PORT = process.env.NODE_DOCKER_PORT || 5000;
 
-app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 
 //Routes
 
