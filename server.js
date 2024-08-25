@@ -1,14 +1,21 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
+const mongoClient = require('./assets/database/MongoDB').mongoConnect;
+
+const userRouter = require("./routes/userRoutes");
 
 
 const app = express();
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.NODE_DOCKER_PORT || 5000;
 
 app.use(bodyParser.json());
 
 //Routes
 
+app.use("/user", userRouter);
 
-app.listen(PORT, () => console.log(`Server started on port ${PORT}`));
+mongoClient(() => {
+    console.log("MongoDB Connected");
+    app.listen(PORT, () => console.log(`Server started on port ${PORT}`));
+})
